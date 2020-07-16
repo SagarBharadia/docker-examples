@@ -1,0 +1,21 @@
+# Version of docker compose to use
+version: "3"
+# Defining the containers needed
+services:
+  # Service web (web server)
+  web:
+    # Build from the local dockerfile
+    build: .
+    # Open port 5000 and link to port 5000 in container
+    ports:
+      - "5000:5000"
+    # Volumes to link
+    # [path to local directory/file]:[path to virtual directory/file]
+    volumes:
+      - .:/code
+    environment:
+      FLASK_ENV: development
+  # Service redis (data)
+  redis:
+    # Defining the image to use from https://hub.docker.com, :alpine means the latest version
+    image: "redis:alpine"
